@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.spidey.groceries.main.GroceryListFragmentViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp"
+        tools:context=".main.GroceryListFragment">
+
+        <EditText
+            android:id="@+id/grocery_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:text="@={viewmodel.groceryName}"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toStartOf="@id/add_grocery"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="LabelFor" />
+
+        <Button
+            android:id="@+id/add_grocery"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="@string/main_fragment_add_grocery_button"
+            android:onClick="@{() -> viewmodel.onAddGrocery()}"
+            app:layout_constraintBottom_toBottomOf="@id/grocery_input"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/grocery_input" />
+
+        <TextView
+            android:id="@+id/grocery_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@{String.valueOf(viewmodel.groceryAmount)}"
+            android:textSize="50sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/grocery_input"
+            tools:text="0" />
+
+        <Button
+            android:id="@+id/increase_amount"
+            android:layout_width="70dp"
+            android:layout_height="0dp"
+            android:onClick="@{() -> viewmodel.onIncreaseAmountClicked()}"
+            android:text="@string/main_fragment_increase_amount_button"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@id/grocery_amount"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/grocery_amount"
+            app:layout_constraintTop_toTopOf="@id/grocery_amount" />
+
+        <Button
+            android:id="@+id/decrease_amount"
+            android:layout_width="70dp"
+            android:layout_height="0dp"
+            android:onClick="@{() -> viewmodel.onDecreaseAmountClicked()}"
+            android:text="@string/main_fragment_decrease_amount_button"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@id/grocery_amount"
+            app:layout_constraintEnd_toStartOf="@id/grocery_amount"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/grocery_amount" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/grocery_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="32dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/grocery_amount"
+            tools:listitem="@layout/grocery_item_layout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
